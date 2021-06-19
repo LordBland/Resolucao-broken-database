@@ -216,7 +216,7 @@ try
                     n++
                 }
                 console.log("Preço Total da Categoria:"+precototal)
-                console.log("...Fim")
+               
             });  
         })
     }
@@ -263,15 +263,24 @@ function correcaoTextual() //Função que corrige os textos corrompidos
 
 function correcaoDePrecos() //Função que corrige os preços que estão como string
 { 
-   if (numero!=Number)
-   {
-        numero= parseFloat(numero)
-   }
-   else
-   {
-        numero=numero
-   }
-    return numero
+
+    try {
+        if (numero!=Number)
+        {
+            numero= parseFloat(numero)
+        }
+        else
+        {
+            numero=numero
+        }
+        return numero
+       
+     }
+     catch (e) 
+     {
+        console.log("ERRO AO CORRIGIR VALORES DE STRING PARA NUMBER") 
+     }
+   
 }
 
 function correcaoDeQuantidades() //Função que quantidades que foram apagadas
