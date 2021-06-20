@@ -10,16 +10,17 @@ let posicaoDosAcessorios = new Array()// Guarda a posiçao dos elementos da cate
 let posicaoDosEletrodomesticos = new Array()// Guarda a posiçao dos elementos da categoria de eletrodomesticos
 let posicaoDasPanelas = new Array()// Guarda a posiçao dos elementos da categoria das panelas
 
-let idsAcessorios = new Array()
-let idsEletronicos = new Array()
-let idsEletrodomesticos = new Array()
-let idsPanelas = new Array()
+let idsAcessorios = new Array()        // Armazena ids de categorias separadamente
+let idsEletronicos = new Array()       // Armazena ids de categorias separadamente
+let idsEletrodomesticos = new Array()  // Armazena ids de categorias separadamente
+let idsPanelas = new Array()           // Armazena ids de categorias separadamente
 
 let i=0 //Variavel de indice
 let k=0 //Variavel de indice
 let p=0 //Variavel de indice
 let m=0 //Variavel de indice
 let n=0 //Variavel de indice
+let v=0 //Variavel de indice
 
 let obId = new Array() // Armazena valores das ids do objeto
 let obNome = new Array() // Armazena valores dos nomes do objeto
@@ -33,21 +34,13 @@ try
     fs.readFile('broken-database.json','utf8',function(err,data)// Função para ler o arquivo JSON
     {
     obj = JSON.parse(data) //Transforma o JSON em um objeto
-
-    //___________________________________________________________________________________
-    k=0 //indice = 0               
+            
     for(k=0;obj[k]!=null;k++)                                           
     {      
-
-        obj[k].price=correcaoDePrecos(obj[k].price)                   // Retorna o valor corrigido do preço ao objeto
-                                                                    
+        obj[k].price=correcaoDePrecos(obj[k].price)                   // Retorna o valor corrigido do preço ao objeto                                                         
         obj[k].name=correcaoTextual(obj[k].name )                     // Retorna um texto corrigido ao objeto
-   
-        obj[k].quantity=correcaoDeQuantidades(obj[k].quantity)        // Retorna um valor corrigido para oobjeto                                                                       
-                                                                   
+        obj[k].quantity=correcaoDeQuantidades(obj[k].quantity)        // Retorna um valor corrigido para oobjeto                                                                                                                               
     }                                                           
-    //_____________________________________________________________________________________
-
 
     json = JSON.stringify(obj) //retorna o objeto para json
 
@@ -136,7 +129,6 @@ try
         console.log(">>>ERRO AO GRAVAR ARQUIVO JSON<<<")  
     }
 
-    
     })   
 }
 catch (e) 
@@ -172,7 +164,6 @@ function correcaoTextual(texto) //Função que corrige os textos corrompidos
 
 function correcaoDePrecos(numero) //Função que corrige os preços que estão como string
 { 
-
     try {
         if (numero!=Number)
         {
@@ -183,13 +174,11 @@ function correcaoDePrecos(numero) //Função que corrige os preços que estão c
             numero=numero
         }
         return numero
-       
      }
      catch (e) 
      {
         console.log("ERRO AO CORRIGIR VALORES DE STRING PARA NUMBER") 
      }
-   
 }
 
 function correcaoDeQuantidades(quantidade) //Função que quantidades que foram apagadas
@@ -222,7 +211,6 @@ function somaDePreco(numero,quantidade)//Função que soma todos o valor total d
 
 function validacao(n,m,catI,posicao,objL,idsCat,obId,oNome,oPreco,oQuantidade)// Função que imprime log de validação 
 {
-
     try 
     {
         console.log("________________________________________________________________________________")
