@@ -31,18 +31,13 @@ try
     //___________________________________________________________________________________
     k=0 //indice = 0               
     for(k=0;obj[k]!=null;k++)                                           
-    {                                                                                            
-        numero=obj[k].price                   // Carrega a variavel numero o valor do preço correspondente ao indice atual
-        correcaoDePrecos()                    // Executa a função de correção de preço com o valor atual do preço
-        obj[k].price=numero                   // Retorna o valor corrigido do preço ao objeto
+    {      
 
-        texto=obj[k].name                     // Carrega a variavel texto com um nome correspondente ao indice atual
-        correcaoTextual()                     // Executa a função de correção textual                                                 
-        obj[k].name=texto                     // Retorna um texto corrigido ao objeto
-
-        quantidade=obj[k].quantity            // Carrega a variavel quantidade com um valor do indice atual 
-        correcaoDeQuantidades()               // Executa a função que corrige valores apagados
-        obj[k].quantity=quantidade            // Retorna um valor corrigido para oobjeto                                                                       
+        obj[k].price=correcaoDePrecos(obj[k].price)                   // Retorna o valor corrigido do preço ao objeto
+                                                                    
+        obj[k].name=correcaoTextual(obj[k].name )                     // Retorna um texto corrigido ao objeto
+   
+        obj[k].quantity=correcaoDeQuantidades(obj[k].quantity)        // Retorna um valor corrigido para oobjeto                                                                       
                                                                    
     }                                                           
     //_____________________________________________________________________________________
@@ -82,7 +77,6 @@ try
                 }
                 
                 //.................................................................................................................
-            
             
                 i=0// Indice
                 for(i=0;i<posicaoDosAcessorios.length;i++)
@@ -124,9 +118,7 @@ try
                         {
                             console.log("   Id:"+idsAcessorios[n])
                             console.log("       "+obj[m].name)
-                            numero=obj[m].price
-                            quantidade=obj[m].quantity
-                            somaDePreco()
+                            somaDePreco(obj[m].price,obj[m].quantity)
                         }
                         m++ 
                     }  
@@ -149,9 +141,7 @@ try
                         {
                             console.log("   Id:"+idsEletrodomesticos[n])
                             console.log("       "+obj[m].name)
-                            numero=obj[m].price
-                            quantidade=obj[m].quantity
-                            somaDePreco()
+                            somaDePreco(obj[m].price,obj[m].quantity)
                         }
                         m++
                     }
@@ -175,9 +165,7 @@ try
                         {
                             console.log("   Id:"+idsEletronicos[n])
                             console.log("       "+obj[m].name)
-                            numero=obj[m].price
-                            quantidade=obj[m].quantity
-                            somaDePreco()
+                            somaDePreco(obj[m].price,obj[m].quantity)
                         }
                         m++
                     }
@@ -199,9 +187,7 @@ try
                         {
                             console.log("   Id:"+idsPanelas[n])
                             console.log("       "+obj[m].name)
-                            numero=obj[m].price
-                            quantidade=obj[m].quantity
-                            somaDePreco()
+                            somaDePreco(obj[m].price,obj[m].quantity)
                         }
                         m++
                     }
@@ -227,9 +213,7 @@ catch (e)
 }
 
 
-
-
-function correcaoTextual() //Função que corrige os textos corrompidos
+function correcaoTextual(texto) //Função que corrige os textos corrompidos
 {
     var tamanhoTexto=texto.length;
     for (var i = 0; i < tamanhoTexto; i++) 
@@ -254,7 +238,7 @@ function correcaoTextual() //Função que corrige os textos corrompidos
     return texto
 }
 
-function correcaoDePrecos() //Função que corrige os preços que estão como string
+function correcaoDePrecos(numero) //Função que corrige os preços que estão como string
 { 
 
     try {
@@ -276,7 +260,7 @@ function correcaoDePrecos() //Função que corrige os preços que estão como st
    
 }
 
-function correcaoDeQuantidades() //Função que quantidades que foram apagadas
+function correcaoDeQuantidades(quantidade) //Função que quantidades que foram apagadas
 { 
    if (quantidade==undefined)
    {
@@ -289,7 +273,7 @@ function correcaoDeQuantidades() //Função que quantidades que foram apagadas
     return quantidade
 }
 
-function somaDePreco()//Função que soma todos o valor total de produtos de uma categoria
+function somaDePreco(numero,quantidade)//Função que soma todos o valor total de produtos de uma categoria
 {
     try 
     {
