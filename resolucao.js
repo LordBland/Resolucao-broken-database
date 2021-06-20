@@ -4,9 +4,6 @@ let quantidade  // Variavel com o nome a ser corrigido
 
 
 let fs = require('fs') // File systen para ler o Json
-let nomes = new Array() // Vetor com todos os nomes do arquivo
-let precos = new Array() // Vetor com todos os preços do arquivo
-let quantidades = new Array() // Vetor com todos as quantidades do arquivo
 
 let posicaoDosEletronicos = new Array()// Guarda a posiçao dos elementos da categoria de eletronicos
 let posicaoDosAcessorios = new Array()// Guarda a posiçao dos elementos da categoria de acessorios
@@ -37,26 +34,17 @@ try
     k=0 //indice = 0               
     for(k=0;obj[k]!=null;k++)                                           
     {                                                                                            
-        nomes.push(obj[k].name)             // Adiciona os elementos do nome do obj dentro do vetor nomes
-        precos.push(obj[k].price)           // Adiciona os elementos do preço do obj dentro do vetor preço
-        quantidades.push(obj[k].quantity)   // Adiciona os elementos das quantidades dentro do vetor quantidades
+        numero=obj[k].price                   // Carrega a variavel numero o valor do preço correspondente ao indice atual
+        correcaoDePrecos()                    // Executa a função de correção de preço com o valor atual do preço
+        obj[k].price=numero                   // Retorna o valor corrigido do preço ao vetor
 
-        numero=precos[k]                    // Carrega a variavel numero o valor do preço correspondente ao indice atual
-        correcaoDePrecos()                  // Executa a função de correção de preço com o valor atual do preço
-        precos[k]=numero                    // Retorna o valor corrigido do preço ao vetor
+        texto=obj[k].name                     // Carrega a variavel texto com um nome correspondente ao indice atual
+        correcaoTextual()                     // Executa a função de correção textual                                                 
+        obj[k].name=texto                     // Retorna um texto corrigido ao vetor nomes
 
-        texto=nomes[k]                      // Carrega a variavel texto com um nome correspondente ao indice atual
-        correcaoTextual()                   // Executa a função de correção textual                                                 
-        nomes[k]=texto                      // Retorna um texto corrigido ao vetor nomes
-
-        quantidade=quantidades[k]           // Carrega a variavel quantidade com um valor do indice atual do vetor quantidades
-        correcaoDeQuantidades()             // Executa a função que corrige valores apagados
-        quantidades[k]=quantidade           // Retorna um valor corrigido para o vetor quantidades
-
-        obj[k].name=nomes[k]                // Atuliza os nomes do obj com os valores corrigidos do vetor
-        obj[k].price=precos[k]              // Atuliza os preços do obj com os valores corrigidos do vetor
-        obj[k].quantity=quantidades[k]      // Atuliza as quantidades do obj com os valores corrigidos do vetor
-                                                                                             
+        quantidade=obj[k].quantity            // Carrega a variavel quantidade com um valor do indice atual do vetor quantidades
+        correcaoDeQuantidades()               // Executa a função que corrige valores apagados
+        obj[k].quantity=quantidade            // Retorna um valor corrigido para o vetor quantidades                                                                       
                                                                    
     }                                                           
     //_____________________________________________________________________________________
