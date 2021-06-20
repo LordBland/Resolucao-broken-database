@@ -21,6 +21,12 @@ let p=0 //Variavel de indice
 let m=0 //Variavel de indice
 let n=0 //Variavel de indice
 
+let obId = new Array() // Armazena valores das ids do objeto
+let obNome = new Array() // Armazena valores dos nomes do objeto
+let obPreco = new Array() // Armazena valores dos precos do objeto
+let obQuantidade = new Array() // Armazena valores das quantidades do objeto
+let obCategoria = new Array() // Armazena valores das categorias do objeto
+
 
 try 
 {
@@ -104,97 +110,23 @@ try
                 idsEletrodomesticos.sort()          // Ordena em ordem crescente as ids dos eletrodomesticos
                 idsPanelas.sort()                   // Ordena em ordem crescente as ids das panelas
 
-                // Imprime saida para validação
-                n=0 // Indice n
-                m=0 // Indice m
-                console.log("________________________________________________________________________________")
-                console.log("Acessórios")
 
-                for(n=0;n<posicaoDosAcessorios.length;n++)
+                for(v=0;obj[v]!=null;v++) // Armazena valores do objeto
                 {
-                    while(m<obj.length)
-                    {
-                        if(idsAcessorios[n]==obj[m].id)
-                        {
-                            console.log("   Id:"+idsAcessorios[n])
-                            console.log("       "+obj[m].name)
-                            somaDePreco(obj[m].price,obj[m].quantity)
-                        }
-                        m++ 
-                    }  
-                    m=0
-                    
-                }
-                
-                console.log("Preço Total da Categoria:"+precototal)
-                n=0 // Indice n
-                m=0 // Indice m
-                precototal=0// Limpa o valor na variavel precototal
-                console.log("________________________________________________________________________________")
-                console.log("Eletrodomésticos")
-
-                for(n=0;n<posicaoDosEletrodomesticos.length;n++)
-                {
-                    while(m<obj.length)
-                    {
-                        if(idsEletrodomesticos[n]==obj[m].id)
-                        {
-                            console.log("   Id:"+idsEletrodomesticos[n])
-                            console.log("       "+obj[m].name)
-                            somaDePreco(obj[m].price,obj[m].quantity)
-                        }
-                        m++
-                    }
-                    m=0
-                    
-                }
-            
-                console.log("Preço Total da Categoria:"+precototal)
-                n=0 // Indice n
-                m=0 // Indice m
-                precototal=0// Limpa o valor na variavel precototal
-                console.log("________________________________________________________________________________")
-                console.log("Eletronicos")
-    
-
-                for(n=0;n<posicaoDosEletronicos.length;n++)
-                {
-                    while(m<obj.length)
-                    {
-                        if(idsEletronicos[n]==obj[m].id)
-                        {
-                            console.log("   Id:"+idsEletronicos[n])
-                            console.log("       "+obj[m].name)
-                            somaDePreco(obj[m].price,obj[m].quantity)
-                        }
-                        m++
-                    }
-                    m=0
+                    obId.push(obj[v].id)
+                    obNome.push(obj[v].name)
+                    obPreco.push(obj[v].price)
+                    obQuantidade.push(obj[v].quantity)
+                    obCategoria.push(obj[v].category)
                 }
 
-                console.log("Preço Total da Categoria:"+precototal)
-                n=0 // Indice n
-                m=0 // Indice m
-                precototal=0// Limpa o valor na variavel precototal
-                console.log("________________________________________________________________________________")
-                console.log("Panelas")
+               
+                // Chama função para imprir validação
+                validacao(0,0,"Acessórios",posicaoDosAcessorios,obj,idsAcessorios,obId,obNome,obPreco,obQuantidade)
+                validacao(0,0,"Eletrodomésticos",posicaoDosEletrodomesticos,obj,idsEletrodomesticos,obId,obNome,obPreco,obQuantidade)
+                validacao(0,0,"Eletronicos",posicaoDosEletronicos,obj,idsEletronicos,obId,obNome,obPreco,obQuantidade)
+                validacao(0,0,"Panelas",posicaoDasPanelas,obj,idsPanelas,obId,obNome,obPreco,obQuantidade)
 
-                for(n=0;n<posicaoDasPanelas.length;n++)
-                {
-                    while(m<obj.length)
-                    {
-                        if(idsPanelas[n]==obj[m].id)
-                        {
-                            console.log("   Id:"+idsPanelas[n])
-                            console.log("       "+obj[m].name)
-                            somaDePreco(obj[m].price,obj[m].quantity)
-                        }
-                        m++
-                    }
-                    m=0
-                    n++
-                }
-                console.log("Preço Total da Categoria:"+precototal)
                
             });  
         })
@@ -287,6 +219,38 @@ function somaDePreco(numero,quantidade)//Função que soma todos o valor total d
 
 }
 
+
+function validacao(n,m,catI,posicao,objL,idsCat,obId,oNome,oPreco,oQuantidade)// Função que imprime log de validação 
+{
+
+    try 
+    {
+        console.log("________________________________________________________________________________")
+        console.log(catI)
+        for(n=0;n<posicao.length;n++)
+        {
+            while(m<objL.length)
+            {
+                if(idsCat[n]==obId[m])
+                {
+                    console.log("   Id:"+idsCat[n])
+                    console.log("       "+oNome[m])
+                    somaDePreco(oPreco[m],oQuantidade[m])
+                }
+                m++
+            }
+            m=0   
+        }
+        console.log("Preço Total da Categoria:"+precototal)
+        precototal=0
+    }
+    
+    catch (e) 
+    {
+        console.log("ERRO AO IMPRIMIR VALIDAÇÂO") 
+    }
+
+}
 
 
 
