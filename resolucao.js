@@ -1,7 +1,7 @@
 let texto=""  // Variavel com o nome a ser corrigido
 let numero=0  // Variavel com o nome a ser corrigido
 let quantidade  // Variavel com o nome a ser corrigido
-
+let precototal=0 //Variavel que armazena temporariamente a soma do preço final de cada categoria
 
 let fs = require('fs') // File systen para ler o Json
 
@@ -9,8 +9,6 @@ let posicaoDosEletronicos = new Array()// Guarda a posiçao dos elementos da cat
 let posicaoDosAcessorios = new Array()// Guarda a posiçao dos elementos da categoria de acessorios
 let posicaoDosEletrodomesticos = new Array()// Guarda a posiçao dos elementos da categoria de eletrodomesticos
 let posicaoDasPanelas = new Array()// Guarda a posiçao dos elementos da categoria das panelas
-
-let precototal=0 //Variavel que armazena temporariamente a soma do preço final de cada categoria
 
 let idsAcessorios = new Array()
 let idsEletronicos = new Array()
@@ -36,15 +34,15 @@ try
     {                                                                                            
         numero=obj[k].price                   // Carrega a variavel numero o valor do preço correspondente ao indice atual
         correcaoDePrecos()                    // Executa a função de correção de preço com o valor atual do preço
-        obj[k].price=numero                   // Retorna o valor corrigido do preço ao vetor
+        obj[k].price=numero                   // Retorna o valor corrigido do preço ao objeto
 
         texto=obj[k].name                     // Carrega a variavel texto com um nome correspondente ao indice atual
         correcaoTextual()                     // Executa a função de correção textual                                                 
-        obj[k].name=texto                     // Retorna um texto corrigido ao vetor nomes
+        obj[k].name=texto                     // Retorna um texto corrigido ao objeto
 
-        quantidade=obj[k].quantity            // Carrega a variavel quantidade com um valor do indice atual do vetor quantidades
+        quantidade=obj[k].quantity            // Carrega a variavel quantidade com um valor do indice atual 
         correcaoDeQuantidades()               // Executa a função que corrige valores apagados
-        obj[k].quantity=quantidade            // Retorna um valor corrigido para o vetor quantidades                                                                       
+        obj[k].quantity=quantidade            // Retorna um valor corrigido para oobjeto                                                                       
                                                                    
     }                                                           
     //_____________________________________________________________________________________
@@ -52,7 +50,7 @@ try
 
     json = JSON.stringify(obj) //retorna o objeto para json
 
-    try 
+    try  // tentativa de escrever e reler o json
     {
         fs.writeFile('saida.json', json,function(err) //Gera um arquivo corrigido
         {
@@ -117,7 +115,6 @@ try
                 m=0 // Indice m
                 console.log("________________________________________________________________________________")
                 console.log("Acessórios")
-                
 
                 for(n=0;n<posicaoDosAcessorios.length;n++)
                 {
@@ -127,7 +124,9 @@ try
                         {
                             console.log("   Id:"+idsAcessorios[n])
                             console.log("       "+obj[m].name)
-                            precototal=precototal+obj[m].price*obj[m].quantity
+                            numero=obj[m].price
+                            quantidade=obj[m].quantity
+                            somaDePreco()
                         }
                         m++ 
                     }  
@@ -150,7 +149,9 @@ try
                         {
                             console.log("   Id:"+idsEletrodomesticos[n])
                             console.log("       "+obj[m].name)
-                            precototal=precototal+obj[m].price*obj[m].quantity
+                            numero=obj[m].price
+                            quantidade=obj[m].quantity
+                            somaDePreco()
                         }
                         m++
                     }
@@ -174,7 +175,9 @@ try
                         {
                             console.log("   Id:"+idsEletronicos[n])
                             console.log("       "+obj[m].name)
-                            precototal=precototal+obj[m].price*obj[m].quantity
+                            numero=obj[m].price
+                            quantidade=obj[m].quantity
+                            somaDePreco()
                         }
                         m++
                     }
@@ -196,7 +199,9 @@ try
                         {
                             console.log("   Id:"+idsPanelas[n])
                             console.log("       "+obj[m].name)
-                            precototal=precototal+obj[m].price*obj[m].quantity
+                            numero=obj[m].price
+                            quantidade=obj[m].quantity
+                            somaDePreco()
                         }
                         m++
                     }
@@ -284,6 +289,19 @@ function correcaoDeQuantidades() //Função que quantidades que foram apagadas
     return quantidade
 }
 
+function somaDePreco()//Função que soma todos o valor total de produtos de uma categoria
+{
+    try 
+    {
+        precototal=precototal+numero*quantidade
+    }
+     catch (e) 
+    {
+        console.log("ERRO AO CALCULAR PREÇO TOTAL DE CATEGORIA") 
+    }
+    return precototal
+
+}
 
 
 
