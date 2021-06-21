@@ -1,6 +1,4 @@
-let texto=""  // Variavel com o nome a ser corrigido
-let numero=0  // Variavel com o nome a ser corrigido
-let quantidade  // Variavel com o nome a ser corrigido
+
 let precototal=0 //Variavel que armazena temporariamente a soma do preço final de cada categoria
 
 let fs = require('fs') // File systen para ler o Json
@@ -77,25 +75,25 @@ try
                 
                 //.................................................................................................................
             
-                i=0// Indice
+                i=0// Reset de Indice
                 for(i=0;i<posicaoDosAcessorios.length;i++)
                 {
-                    idsAcessorios.push(obj[posicaoDosAcessorios[i]].id)   
+                    idsAcessorios.push(obj[posicaoDosAcessorios[i]].id)   //armazena os ids de uma categoria especifica
                 }
-                i=0
+                i=0// Reset de Indice
                 for(i=0;i<posicaoDosEletronicos.length;i++)
                 {
-                    idsEletronicos.push(obj[posicaoDosEletronicos[i]].id)  
+                    idsEletronicos.push(obj[posicaoDosEletronicos[i]].id)  //armazena os ids de uma categoria especifica
                 }
-                i=0
+                i=0// Reset de Indice
                 for(i=0;i<posicaoDosEletrodomesticos.length;i++)
                 {
-                    idsEletrodomesticos.push(obj[posicaoDosEletrodomesticos[i]].id)  
+                    idsEletrodomesticos.push(obj[posicaoDosEletrodomesticos[i]].id)  //armazena os ids de uma categoria especifica
                 }
-                i=0
+                i=0// Reset de Indice
                 for(i=0;i<posicaoDasPanelas.length;i++)
                 {
-                    idsPanelas.push(obj[posicaoDasPanelas[i]].id)  
+                    idsPanelas.push(obj[posicaoDasPanelas[i]].id)  //armazena os ids de uma categoria especifica
                 }
 
                 idsAcessorios=idsAcessorios.sort()  // Ordena em ordem crescente as ids dos acessorios
@@ -106,7 +104,7 @@ try
 
                 for(v=0;obj[v]!=null;v++) // Armazena valores do objeto
                 {
-                    obId.push(obj[v].id)
+                    obId.push(obj[v].id)                
                     obNome.push(obj[v].name)
                     obPreco.push(obj[v].price)
                     obQuantidade.push(obj[v].quantity)
@@ -115,10 +113,10 @@ try
 
                
                 // Chama função para imprir validação
-                validacao(0,0,"Acessórios",posicaoDosAcessorios,obj,idsAcessorios,obId,obNome,obPreco,obQuantidade)
-                validacao(0,0,"Eletrodomésticos",posicaoDosEletrodomesticos,obj,idsEletrodomesticos,obId,obNome,obPreco,obQuantidade)
-                validacao(0,0,"Eletronicos",posicaoDosEletronicos,obj,idsEletronicos,obId,obNome,obPreco,obQuantidade)
-                validacao(0,0,"Panelas",posicaoDasPanelas,obj,idsPanelas,obId,obNome,obPreco,obQuantidade)
+                validacao(0,0,"Acessórios",posicaoDosAcessorios,obj,idsAcessorios,obId,obNome,obPreco,obQuantidade)                      //Imprime categoria acessórios
+                validacao(0,0,"Eletrodomésticos",posicaoDosEletrodomesticos,obj,idsEletrodomesticos,obId,obNome,obPreco,obQuantidade)    //Imprime categoria eletrodomésticos
+                validacao(0,0,"Eletronicos",posicaoDosEletronicos,obj,idsEletronicos,obId,obNome,obPreco,obQuantidade)                   //Imprime categoria eletronicos
+                validacao(0,0,"Panelas",posicaoDasPanelas,obj,idsPanelas,obId,obNome,obPreco,obQuantidade)                               //Imprime categoria panelas
 
                
             });  
@@ -146,15 +144,15 @@ function correcaoTextual(texto) //Função que corrige os textos corrompidos
         {
             texto=texto.replace('æ','a')
         } 
-        if (texto[i]== "¢") 
+        else if (texto[i]== "¢") 
         {
             texto=texto.replace('¢','c')
         } 
-        if (texto[i]== "ø") 
+        else if (texto[i]== "ø") 
         {
             texto=texto.replace('ø','o')
         } 
-        if (texto[i]== "ß") 
+        else if (texto[i]== "ß") 
         {
             texto=texto.replace('ß','b')
         }   
@@ -175,13 +173,13 @@ function correcaoDePrecos(numero) //Função que corrige os preços que estão c
         }
         return numero
      }
-     catch (e) 
+    catch (e) 
      {
         console.log("ERRO AO CORRIGIR VALORES DE STRING PARA NUMBER") 
      }
 }
 
-function correcaoDeQuantidades(quantidade) //Função que quantidades que foram apagadas
+function correcaoDeQuantidades(quantidade) //Função que corrige quantidades que foram apagadas
 { 
    if (quantidade==undefined)
    {
@@ -200,14 +198,13 @@ function somaDePreco(numero,quantidade)//Função que soma todos o valor total d
     {
         precototal=precototal+numero*quantidade
     }
-     catch (e) 
+    catch (e) 
     {
         console.log("ERRO AO CALCULAR PREÇO TOTAL DE CATEGORIA") 
     }
     return precototal
 
 }
-
 
 function validacao(n,m,catI,posicao,objL,idsCat,obId,oNome,oPreco,oQuantidade)// Função que imprime log de validação 
 {
@@ -231,8 +228,7 @@ function validacao(n,m,catI,posicao,objL,idsCat,obId,oNome,oPreco,oQuantidade)//
         }
         console.log("Preço Total da Categoria:"+precototal)
         precototal=0
-    }
-    
+    }  
     catch (e) 
     {
         console.log("ERRO AO IMPRIMIR VALIDAÇÂO") 
